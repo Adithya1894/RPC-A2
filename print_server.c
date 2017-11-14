@@ -176,7 +176,8 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 				result->result[l] = serialized_result[l];
 				l++;
 			}
-		}	
+		}
+		result->row_first = row1;	
 	
 	retval =1;
 	return retval;
