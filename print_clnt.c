@@ -44,3 +44,12 @@ file_check_1(a2_file_check *argp, a2_file_check *clnt_res, CLIENT *clnt)
 		(xdrproc_t) xdr_a2_file_check, (caddr_t) clnt_res,
 		TIMEOUT));
 }
+
+enum clnt_stat 
+matrix_mul_1(a2_matrix_mul *argp, a2_matrix_mul *clnt_res, CLIENT *clnt)
+{
+	return (clnt_call(clnt, Matrix_mul,
+		(xdrproc_t) xdr_a2_matrix_mul, (caddr_t) argp,
+		(xdrproc_t) xdr_a2_matrix_mul, (caddr_t) clnt_res,
+		TIMEOUT));
+}

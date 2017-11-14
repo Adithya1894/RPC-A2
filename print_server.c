@@ -89,6 +89,7 @@ file_check_1_svc(a2_file_check *argp, a2_file_check *result, struct svc_req *rqs
 {
 	bool_t retval;
 	char empty[10] = "Not Found";
+	int arr[10][10]; 
 
     if( access( argp->files, F_OK ) != -1 ) {
     	strcpy(result->files, argp->files);
@@ -105,6 +106,19 @@ file_check_1_svc(a2_file_check *argp, a2_file_check *result, struct svc_req *rqs
 	 * insert server code here
 	 */
 	retval = 1;
+	return retval;
+}
+
+
+bool_t
+matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqstp)
+{
+	bool_t retval;
+
+	/*
+	 * insert server code here
+	 */
+
 	return retval;
 }
 

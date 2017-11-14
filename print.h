@@ -37,6 +37,16 @@ struct a2_file_check {
 };
 typedef struct a2_file_check a2_file_check;
 
+struct a2_matrix_mul {
+	int first[100];
+	int second[100];
+	int row_first;
+	int col_first;
+	int row_second;
+	int col_second;
+};
+typedef struct a2_matrix_mul a2_matrix_mul;
+
 #define Morampudi_a2 0x456456
 #define a2Vers 1
 
@@ -53,6 +63,9 @@ extern  bool_t path_1_svc(void *, a2_path *, struct svc_req *);
 #define File_Check 4
 extern  enum clnt_stat file_check_1(a2_file_check *, a2_file_check *, CLIENT *);
 extern  bool_t file_check_1_svc(a2_file_check *, a2_file_check *, struct svc_req *);
+#define Matrix_mul 5
+extern  enum clnt_stat matrix_mul_1(a2_matrix_mul *, a2_matrix_mul *, CLIENT *);
+extern  bool_t matrix_mul_1_svc(a2_matrix_mul *, a2_matrix_mul *, struct svc_req *);
 extern int morampudi_a2_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
@@ -68,6 +81,9 @@ extern  bool_t path_1_svc();
 #define File_Check 4
 extern  enum clnt_stat file_check_1();
 extern  bool_t file_check_1_svc();
+#define Matrix_mul 5
+extern  enum clnt_stat matrix_mul_1();
+extern  bool_t matrix_mul_1_svc();
 extern int morampudi_a2_1_freeresult ();
 #endif /* K&R C */
 
@@ -78,12 +94,14 @@ extern  bool_t xdr_a2_echo (XDR *, a2_echo*);
 extern  bool_t xdr_a2_sort (XDR *, a2_sort*);
 extern  bool_t xdr_a2_path (XDR *, a2_path*);
 extern  bool_t xdr_a2_file_check (XDR *, a2_file_check*);
+extern  bool_t xdr_a2_matrix_mul (XDR *, a2_matrix_mul*);
 
 #else /* K&R C */
 extern bool_t xdr_a2_echo ();
 extern bool_t xdr_a2_sort ();
 extern bool_t xdr_a2_path ();
 extern bool_t xdr_a2_file_check ();
+extern bool_t xdr_a2_matrix_mul ();
 
 #endif /* K&R C */
 

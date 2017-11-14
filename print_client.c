@@ -26,6 +26,52 @@ input_list_values(a2_sort *formal_list)
 
 }
 
+void
+input_array_values(a2_matrix_mul *formal_array)
+{
+	int row1;
+	int col1;
+	int row2;
+	int col2;
+	int first[100];
+	int second[100];
+	int i,j;
+	int z ,k = 0;
+	printf("\n Enter the number of rows of first array: \n");
+	scanf("%d", &row1);
+	formal_array->row_first = row1;
+	printf("\n Enter the number of columns of first array: \n");
+	scanf("%d", &col1);
+	formal_array->col_first = col1;
+	for(i = 0; i < row1; i++)
+	{
+		for(j = 0; j < col1; j++)
+		{
+			printf("Enter the array_element: \n");
+			scanf("%d", &first[z]);
+			formal_array->first[z] = first[z];		
+			z++;
+		}
+	}
+	
+	printf("\n Enter the number of rows of second array: \n");
+	scanf("%d", &row2);
+	formal_array->row_second = row2;
+	printf("\n Enter the number of columns of second array: \n");
+	scanf("%d", &col2);
+	formal_array->col_second = col2;
+	for(i = 0; i < row2; i++)
+	{
+		for(j = 0; j < col2; j++)
+		{
+			printf("Enter the array_element: \n");
+			scanf("%d", &second[k]);
+			formal_array->second[k] = second[k];
+			k++;
+		}
+	}
+}
+
 
 void
 morampudi_a2_1(char *host)
@@ -50,6 +96,10 @@ morampudi_a2_1(char *host)
 	a2_file_check result_4;
 	a2_file_check  file_check_1_arg;
 	char file_name[100];
+	enum clnt_stat retval_5;
+	a2_matrix_mul result_5;
+	a2_matrix_mul  matrix_mul_1_arg;
+	
 #ifndef	DEBUG
 	clnt = clnt_create (host, Morampudi_a2, a2Vers, "udp");
 	if (clnt == NULL) {
@@ -142,7 +192,15 @@ do
 	
 	printf("Requested file:  %s\n", result_4.files);
 	}
+	break;
 	
+	case 5:
+	printf("Matrix Multiplication\n");
+	input_array_values(&matrix_mul_1_arg);
+	retval_5 = matrix_mul_1(&matrix_mul_1_arg, &result_5, clnt);
+	if (retval_5 != RPC_SUCCESS) {
+		clnt_perror (clnt, "call failed");
+	}
 	
 	
 	}

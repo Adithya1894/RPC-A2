@@ -23,12 +23,14 @@ morampudi_a2_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		a2_echo echo_1_arg;
 		a2_sort sort_1_arg;
 		a2_file_check file_check_1_arg;
+		a2_matrix_mul matrix_mul_1_arg;
 	} argument;
 	union {
 		a2_echo echo_1_res;
 		a2_sort sort_1_res;
 		a2_path path_1_res;
 		a2_file_check file_check_1_res;
+		a2_matrix_mul matrix_mul_1_res;
 	} result;
 	bool_t retval;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -61,6 +63,12 @@ morampudi_a2_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		_xdr_argument = (xdrproc_t) xdr_a2_file_check;
 		_xdr_result = (xdrproc_t) xdr_a2_file_check;
 		local = (bool_t (*) (char *, void *,  struct svc_req *))file_check_1_svc;
+		break;
+
+	case Matrix_mul:
+		_xdr_argument = (xdrproc_t) xdr_a2_matrix_mul;
+		_xdr_result = (xdrproc_t) xdr_a2_matrix_mul;
+		local = (bool_t (*) (char *, void *,  struct svc_req *))matrix_mul_1_svc;
 		break;
 
 	default:
