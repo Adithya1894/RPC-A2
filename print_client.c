@@ -99,6 +99,11 @@ morampudi_a2_1(char *host)
 	enum clnt_stat retval_5;
 	a2_matrix_mul result_5;
 	a2_matrix_mul  matrix_mul_1_arg;
+	int result_matrix[100][100];
+	a2_matrix_mul *formal_result;
+	int row;
+	int j;
+	int z = 0;
 	
 #ifndef	DEBUG
 	clnt = clnt_create (host, Morampudi_a2, a2Vers, "udp");
@@ -201,8 +206,39 @@ do
 	if (retval_5 != RPC_SUCCESS) {
 		clnt_perror (clnt, "call failed");
 	}
+	else{
+	printf("Multiplied Result: \n");
+	formal_result = &result_5;
+	row = formal_result->row_first;
+	for(i = 0; i < row; i++)
+	{
+		for(j = 0; j < row; j++)
+		{
+
+		result_matrix[i][j] = formal_result->result[z];
+		z++;
+		}
+	}
+	
+	for(i = 0; i < row; i++ )
+	{
+		for(j = 0; j < row; j++)
+		{
+		
+		printf("\n Result Matrix is: \n")
+		printf("%d\t", result_matrix[i][j]);
+		}
+		printf("\n");
+	}
 	
 	
+	
+	
+	
+	}
+	
+	
+	/*closing brace for switch case, this comment is for Developers readability*/
 	}
 }  
 while(i!=6);
