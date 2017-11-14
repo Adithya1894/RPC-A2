@@ -17,3 +17,30 @@ echo_1(a2_echo *argp, a2_echo *clnt_res, CLIENT *clnt)
 		(xdrproc_t) xdr_a2_echo, (caddr_t) clnt_res,
 		TIMEOUT));
 }
+
+enum clnt_stat 
+sort_1(a2_sort *argp, a2_sort *clnt_res, CLIENT *clnt)
+{
+	return (clnt_call(clnt, Sort,
+		(xdrproc_t) xdr_a2_sort, (caddr_t) argp,
+		(xdrproc_t) xdr_a2_sort, (caddr_t) clnt_res,
+		TIMEOUT));
+}
+
+enum clnt_stat 
+path_1(void *argp, a2_path *clnt_res, CLIENT *clnt)
+{
+	return (clnt_call(clnt, Path,
+		(xdrproc_t) xdr_void, (caddr_t) argp,
+		(xdrproc_t) xdr_a2_path, (caddr_t) clnt_res,
+		TIMEOUT));
+}
+
+enum clnt_stat 
+file_check_1(a2_file_check *argp, a2_file_check *clnt_res, CLIENT *clnt)
+{
+	return (clnt_call(clnt, File_Check,
+		(xdrproc_t) xdr_a2_file_check, (caddr_t) argp,
+		(xdrproc_t) xdr_a2_file_check, (caddr_t) clnt_res,
+		TIMEOUT));
+}

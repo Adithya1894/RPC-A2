@@ -6,6 +6,26 @@
 
 #include "print.h"
 
+void
+input_list_values(a2_sort *formal_list)
+{
+	int count;
+	int list_item;
+	int i;
+	printf("enter the number of elements: \n");
+	scanf("%d", &count);
+	formal_list->count = count;
+	printf("enter the list elements: \n");
+		for(i = 0; i < count; i++)
+		{	
+		printf("\n enter the list[%d] element: \n", i+1);
+		scanf("%d", &list_item);
+		formal_list->list[i] = list_item;
+		}
+		
+
+}
+
 
 void
 morampudi_a2_1(char *host)
@@ -14,8 +34,22 @@ morampudi_a2_1(char *host)
 	enum clnt_stat retval_1;
 	a2_echo result_1;
 	a2_echo  echo_1_arg;
+	a2_sort *formal_sorted_list;
+	int formal_count;
+	enum clnt_stat retval_2;
+	a2_sort result_2;
+	a2_sort  sort_1_arg;
+	int list_count;
+	enum clnt_stat retval_3;
+	a2_path result_3;
+	char *path_1_arg;
+	int i;
+	int count1;
 	char entered_input[100];
-	int i = 0;
+	enum clnt_stat retval_4;
+	a2_file_check result_4;
+	a2_file_check  file_check_1_arg;
+	char file_name[100];
 #ifndef	DEBUG
 	clnt = clnt_create (host, Morampudi_a2, a2Vers, "udp");
 	if (clnt == NULL) {
@@ -23,7 +57,27 @@ morampudi_a2_1(char *host)
 		exit (1);
 	}
 #endif	/* DEBUG */
-	while(i < 10){
+
+do
+{	
+	printf("\n");
+	printf("Please choose an option: \n");
+	printf("1. Echo the Input\n");
+	printf("2. Sort the list\n");
+	printf("3. Output the Present working directory\n");
+	printf("4. Check if a file is available\n");
+	printf("5. Matrix Multiplication\n");
+	printf("6. Exit\n");
+	scanf("%d", &i);
+
+     
+     
+	switch(i)
+	{	
+	
+
+	case 1:
+	
 	printf("\n");
 	printf("enter the input: \n");
 	scanf("%s", &entered_input);
@@ -35,9 +89,69 @@ morampudi_a2_1(char *host)
 	else{
 	printf("\n");
 	printf("This is the result: %s \n", result_1.input);
-	}	
-	i++;
 	}
+	break;
+
+		
+	case 2:
+	input_list_values(&sort_1_arg);
+	retval_2 = sort_1(&sort_1_arg, &result_2, clnt);
+	if (retval_2 != RPC_SUCCESS) {
+		clnt_perror (clnt, "call failed");
+	}
+	else{
+	printf("Sorted List: \n");
+	formal_sorted_list = &result_2;
+	formal_count = formal_sorted_list->count;
+	for(i = 0; i < formal_count; i++)
+	{
+
+	printf("\n : %d \n", formal_sorted_list->sorted_list[i]);
+
+	}
+	
+	
+	
+	}
+	break;
+	
+	
+	case 3:
+	retval_3 = path_1((void*)&path_1_arg, &result_3, clnt);
+	if (retval_3 != RPC_SUCCESS) {
+		clnt_perror (clnt, "call failed");
+	}
+	else
+	{
+	
+	printf("This is the working directory: %s \n\n", result_3.pwd);
+	printf("\n");
+	
+	}
+	break;
+	
+	case 4:
+	printf("\nEnter the Filename:\n");
+	scanf("%s", &file_name);
+	strcpy(file_check_1_arg.files, file_name);	
+	retval_4 = file_check_1(&file_check_1_arg, &result_4, clnt);
+	if (retval_4 != RPC_SUCCESS) {
+		clnt_perror (clnt, "call failed");
+	}
+	else{
+	
+	printf("Requested file:  %s\n", result_4.files);
+	}
+	
+	
+	
+	}
+}  
+while(i!=6);
+	
+
+
+   
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */

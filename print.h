@@ -20,6 +20,23 @@ struct a2_echo {
 };
 typedef struct a2_echo a2_echo;
 
+struct a2_sort {
+	int count;
+	int list[100];
+	int sorted_list[100];
+};
+typedef struct a2_sort a2_sort;
+
+struct a2_path {
+	char pwd[100];
+};
+typedef struct a2_path a2_path;
+
+struct a2_file_check {
+	char files[100];
+};
+typedef struct a2_file_check a2_file_check;
+
 #define Morampudi_a2 0x456456
 #define a2Vers 1
 
@@ -27,12 +44,30 @@ typedef struct a2_echo a2_echo;
 #define Echo 1
 extern  enum clnt_stat echo_1(a2_echo *, a2_echo *, CLIENT *);
 extern  bool_t echo_1_svc(a2_echo *, a2_echo *, struct svc_req *);
+#define Sort 2
+extern  enum clnt_stat sort_1(a2_sort *, a2_sort *, CLIENT *);
+extern  bool_t sort_1_svc(a2_sort *, a2_sort *, struct svc_req *);
+#define Path 3
+extern  enum clnt_stat path_1(void *, a2_path *, CLIENT *);
+extern  bool_t path_1_svc(void *, a2_path *, struct svc_req *);
+#define File_Check 4
+extern  enum clnt_stat file_check_1(a2_file_check *, a2_file_check *, CLIENT *);
+extern  bool_t file_check_1_svc(a2_file_check *, a2_file_check *, struct svc_req *);
 extern int morampudi_a2_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
 #define Echo 1
 extern  enum clnt_stat echo_1();
 extern  bool_t echo_1_svc();
+#define Sort 2
+extern  enum clnt_stat sort_1();
+extern  bool_t sort_1_svc();
+#define Path 3
+extern  enum clnt_stat path_1();
+extern  bool_t path_1_svc();
+#define File_Check 4
+extern  enum clnt_stat file_check_1();
+extern  bool_t file_check_1_svc();
 extern int morampudi_a2_1_freeresult ();
 #endif /* K&R C */
 
@@ -40,9 +75,15 @@ extern int morampudi_a2_1_freeresult ();
 
 #if defined(__STDC__) || defined(__cplusplus)
 extern  bool_t xdr_a2_echo (XDR *, a2_echo*);
+extern  bool_t xdr_a2_sort (XDR *, a2_sort*);
+extern  bool_t xdr_a2_path (XDR *, a2_path*);
+extern  bool_t xdr_a2_file_check (XDR *, a2_file_check*);
 
 #else /* K&R C */
 extern bool_t xdr_a2_echo ();
+extern bool_t xdr_a2_sort ();
+extern bool_t xdr_a2_path ();
+extern bool_t xdr_a2_file_check ();
 
 #endif /* K&R C */
 
