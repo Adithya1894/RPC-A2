@@ -125,7 +125,7 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 	int z,k,l = 0;
 	int first[100][100];
 	int second[100][100];
-	int result[100][100] = 0;
+	int result_matrix[100][100];
 	int serialized_result[100];
 	/*Assigning local variables values from the values which has been passed by the client*/
 	row1 = argp->row_first;
@@ -161,7 +161,7 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
         {
         
             for (k = 0; k < row1; k++)
-                result[i][j] += mat1[i][k]*mat2[k][j];
+                result_matrix[i][j] += first[i][k]*second[k][j];
         }
     }
 
@@ -172,8 +172,8 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 		{
 			for(j = 0; j < col1; j++)
 			{
-				serialized_result[l] = result[i][j];
-				result->result[l] = serialized_result[l];
+				serialized_result[l] = result_matrix[i][j];
+				result->multiplied[l] = serialized_result[l];
 				l++;
 			}
 		}
