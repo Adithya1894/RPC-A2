@@ -215,7 +215,7 @@ do
 		for(j = 0; j < row; j++)
 		{
 
-		result_matrix[i][j] = formal_result->result[z];
+		result_matrix[i][j] = formal_result->multiplied[z];
 		z++;
 		}
 	}
@@ -225,7 +225,7 @@ do
 		for(j = 0; j < row; j++)
 		{
 		
-		printf("\n Result Matrix is: \n")
+		printf("\n Result Matrix is: \n");
 		printf("%d\t", result_matrix[i][j]);
 		}
 		printf("\n");
