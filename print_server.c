@@ -119,16 +119,18 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 	bool_t retval;
 	
 	int row1,i,j;
-	int col1;
-	int row2;
-	int col2;
+	int col1 = 0;
+	int row2 = 0;
+	int col2 = 0;
 	int k = 0;
 	int l = 0;
 	int z = 0;
 	int first_server[100][100];
 	int second_server[100][100];
 	int result_matrix[100][100];
-	int serialized_result[100];
+	int serialized_result;
+	int first_value ;
+	int second_value ;
 	/*Assigning local variables values from the values which has been passed by the client*/
 	row1 = argp->row_first;
 	col1 = argp->col_first;
@@ -138,36 +140,33 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 	/*DeSerializing the first Array values and storing it in first Matrix*/
 	for(i = 0; i < row1; i++)
 	{
-		for(j = 0; j < col1; j++)
-		{
-			first_server[i][j] = argp->first[k];
+		for(j = 0; j < row1; j++)
+		{	
+			first_value = argp->first[k];
+			first_server[i][j] = first_value;
 			printf("%d\t", argp->first[k]);
+			
+			second_value = argp->second[k];
+			second_server[i][j] = second_value;
 			k++;
 			
 		}
 	}
+	k = 0;
 	printf("\n");
 	/*Deserializing the second Array values and storing it in the Matrix 2*/ 
-	for(i = 0; i < row2; i++)
-	{
-		for(j = 0; j < col2; j++)
-		{
-			second_server[i][j] = argp->second[z];
-			
-			printf("%d\t", argp->second[z]);
-			z++;
-		}
-	}
-	printf("\n");
+		
+	
 	/*Multiplication code for Matrices*/	
     for (i = 0; i < row1; i++)
     {
         for (j = 0; j < row1; j++)
         {
-        
+        	result_matrix[i][j] = 0;
             for (k = 0; k < row1; k++)
+            	
                 result_matrix[i][j] += first_server[i][k]*second_server[k][j];
-                printf("%d", result_matrix[i][j]);
+                
         }
     }
 
@@ -176,16 +175,19 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 	 
 	for(i = 0; i < row1; i++)
 		{
-			for(j = 0; j < col1; j++)
+			for(j = 0; j < row1; j++)
 			{
-				serialized_result[l] = result_matrix[i][j];
-				result->multiplied[l] = serialized_result[l];
+				
+				serialized_result = result_matrix[i][j];
+				printf("%d\t", result_matrix[i][j]);
+				result->multiplied[l] = serialized_result;
 				l++;
 			}
 		}
+		l = 0;
 		result->row_first = row1;
 		result->col_second = col2;		
-	retval =1;
+	retval = 1;
 	return retval;
 }
 
