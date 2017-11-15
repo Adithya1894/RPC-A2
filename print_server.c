@@ -122,9 +122,11 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 	int col1;
 	int row2;
 	int col2;
-	int z,k,l = 0;
-	int first[100][100];
-	int second[100][100];
+	int k = 0;
+	int l = 0;
+	int z = 0;
+	int first_server[100][100];
+	int second_server[100][100];
 	int result_matrix[100][100];
 	int serialized_result[100];
 	/*Assigning local variables values from the values which has been passed by the client*/
@@ -138,22 +140,25 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 	{
 		for(j = 0; j < col1; j++)
 		{
-			first[i][j] = argp->first[k];
+			first_server[i][j] = argp->first[k];
+			printf("%d\t", argp->first[k]);
 			k++;
 			
 		}
 	}
+	printf("\n");
 	/*Deserializing the second Array values and storing it in the Matrix 2*/ 
 	for(i = 0; i < row2; i++)
 	{
 		for(j = 0; j < col2; j++)
 		{
-			second[i][j] = argp->second[z];
+			second_server[i][j] = argp->second[z];
+			
+			printf("%d\t", argp->second[z]);
 			z++;
-		
 		}
 	}
-	
+	printf("\n");
 	/*Multiplication code for Matrices*/	
     for (i = 0; i < row1; i++)
     {
@@ -161,7 +166,8 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
         {
         
             for (k = 0; k < row1; k++)
-                result_matrix[i][j] += first[i][k]*second[k][j];
+                result_matrix[i][j] += first_server[i][k]*second_server[k][j];
+                printf("%d", result_matrix[i][j]);
         }
     }
 
@@ -177,8 +183,7 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 				l++;
 			}
 		}
-		result->row_first = row1;	
-	
+		result->row_first = row1;		
 	retval =1;
 	return retval;
 }
