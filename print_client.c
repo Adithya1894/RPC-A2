@@ -41,14 +41,14 @@ input_array_values(a2_matrix_mul *formal_array)
 	printf("\n Enter the number of rows of first array: \n");
 	scanf("%d", &row1);
 	formal_array->row_first = row1;
-	printf("\n Enter the number of columns of first array: \n");
-	scanf("%d", &col1);
-	formal_array->col_first = col1;
+	/*printf("\n Enter the number of columns of first array: \n");
+	scanf("%d", &col1);*/
+	formal_array->col_first = row1;
 	for(i = 0; i < row1; i++)
 	{
-		for(j = 0; j < col1; j++)
+		for(j = 0; j < row1; j++)
 		{
-			printf("Enter the array_element: \n");
+			printf("Enter the value of matrix[%d][%d]: \n", i,j);
 			scanf("%d", &formal_first[z]);
 			formal_array->first[z] = formal_first[z];		
 			z++;
@@ -56,17 +56,20 @@ input_array_values(a2_matrix_mul *formal_array)
 	}
 	z = 0;
 	
-	printf("\n Enter the number of rows of second array: \n");
+	/*printf("\n Enter the number of rows of second array: \n");
 	scanf("%d", &row2);
 	formal_array->row_second = row2;
 	printf("\n Enter the number of columns of second array: \n");
 	scanf("%d", &col2);
-	formal_array->col_second = col2;
-	for(i = 0; i < row2; i++)
+	formal_array->col_second = col2;*/
+	formal_array->row_second = row1;
+	formal_array->col_second = row1;
+	printf("\nEnter the values for second Matrix\n");
+	for(i = 0; i < row1; i++)
 	{
-		for(j = 0; j < col2; j++)
+		for(j = 0; j < row1; j++)
 		{
-			printf("Enter the array_element: \n");
+			printf("Enter the value of matrix[%d][%d]: \n", i,j);
 			scanf("%d", &formal_second[k]);
 			formal_array->second[k] = formal_second[k];
 			k++;
@@ -74,7 +77,7 @@ input_array_values(a2_matrix_mul *formal_array)
 	}
 	k = 0;
 	
-	for(i = 0; i < row1*col1; i++)
+	for(i = 0; i < row1*row1; i++)
 	{
 	
 		printf("%d\t", formal_first[i]);
