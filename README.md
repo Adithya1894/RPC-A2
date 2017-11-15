@@ -1,6 +1,6 @@
 # 1 RPC-A2
-A MultiThreaded Client - Server Program using RPC
-to Run the program, Clone the Project into your Machine  
+A MultiThreaded Client - Server Program using RPC  
+To Run the program, Clone the Project into your Machine  
 To run this code, you need to have RPCBIND installed in you machine.   
 if it is not installed, you can do so using the command "sudo apt -get install rpcbind"  
 
