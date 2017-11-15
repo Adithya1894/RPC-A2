@@ -112,7 +112,7 @@ file_check_1_svc(a2_file_check *argp, a2_file_check *result, struct svc_req *rqs
 	return retval;
 }
 
-
+/*This Method has all the related work to calculate the Matrix Multiplication*/
 bool_t
 matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqstp)
 {
