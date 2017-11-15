@@ -109,6 +109,7 @@ morampudi_a2_1(char *host)
 	int result_matrix[100][100];
 	a2_matrix_mul *formal_result;
 	int row;
+	int col;
 	int j;
 	int z = 0;
 	
@@ -217,9 +218,10 @@ do
 	printf("Multiplied Result: \n");
 	formal_result = &result_5;
 	row = formal_result->row_first;
+	col = formal_result->col_second;
 	for(i = 0; i < row; i++)
 	{
-		for(j = 0; j < row; j++)
+		for(j = 0; j < col; j++)
 		{
 
 		result_matrix[i][j] = formal_result->multiplied[z];
