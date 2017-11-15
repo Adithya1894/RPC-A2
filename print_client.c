@@ -33,8 +33,8 @@ input_array_values(a2_matrix_mul *formal_array)
 	int col1;
 	int row2;
 	int col2;
-	int first[100];
-	int second[100];
+	int formal_first[100];
+	int formal_second[100];
 	int i,j;
 	int z ,k = 0;
 	printf("\n Enter the number of rows of first array: \n");
@@ -48,8 +48,8 @@ input_array_values(a2_matrix_mul *formal_array)
 		for(j = 0; j < col1; j++)
 		{
 			printf("Enter the array_element: \n");
-			scanf("%d", &first[z]);
-			formal_array->first[z] = first[z];		
+			scanf("%d", &formal_first[z]);
+			formal_array->first[z] = formal_first[z];		
 			z++;
 		}
 	}
@@ -65,10 +65,17 @@ input_array_values(a2_matrix_mul *formal_array)
 		for(j = 0; j < col2; j++)
 		{
 			printf("Enter the array_element: \n");
-			scanf("%d", &second[k]);
-			formal_array->second[k] = second[k];
+			scanf("%d", &formal_second[k]);
+			formal_array->second[k] = formal_second[k];
 			k++;
 		}
+	}
+	
+	for(i = 0; i < row1*col1; i++)
+	{
+	
+		printf("%d\t", formal_first[i]);
+		printf("%d\t", formal_second[i]);
 	}
 }
 
