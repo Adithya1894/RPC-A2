@@ -131,7 +131,7 @@ xdr_a2_matrix_mul (XDR *xdrs, a2_matrix_mul *objp)
 	int i;
 
 	if (xdrs->x_op == XDR_ENCODE) {
-		buf = XDR_INLINE (xdrs, (4 +  100  + 100 )* BYTES_PER_XDR_UNIT);
+		buf = XDR_INLINE (xdrs, (4 +  100  + 100  + 100 )* BYTES_PER_XDR_UNIT);
 		if (buf == NULL) {
 			 if (!xdr_vector (xdrs, (char *)objp->first, 100,
 				sizeof (int), (xdrproc_t) xdr_int))
@@ -146,6 +146,9 @@ xdr_a2_matrix_mul (XDR *xdrs, a2_matrix_mul *objp)
 			 if (!xdr_int (xdrs, &objp->row_second))
 				 return FALSE;
 			 if (!xdr_int (xdrs, &objp->col_second))
+				 return FALSE;
+			 if (!xdr_vector (xdrs, (char *)objp->multiplied, 100,
+				sizeof (int), (xdrproc_t) xdr_int))
 				 return FALSE;
 		} else {
 			{
@@ -168,10 +171,18 @@ xdr_a2_matrix_mul (XDR *xdrs, a2_matrix_mul *objp)
 			IXDR_PUT_LONG(buf, objp->col_first);
 			IXDR_PUT_LONG(buf, objp->row_second);
 			IXDR_PUT_LONG(buf, objp->col_second);
+			{
+				register int *genp;
+
+				for (i = 0, genp = objp->multiplied;
+					i < 100; ++i) {
+					IXDR_PUT_LONG(buf, *genp++);
+				}
+			}
 		}
 		return TRUE;
 	} else if (xdrs->x_op == XDR_DECODE) {
-		buf = XDR_INLINE (xdrs, (4 +  100  + 100 )* BYTES_PER_XDR_UNIT);
+		buf = XDR_INLINE (xdrs, (4 +  100  + 100  + 100 )* BYTES_PER_XDR_UNIT);
 		if (buf == NULL) {
 			 if (!xdr_vector (xdrs, (char *)objp->first, 100,
 				sizeof (int), (xdrproc_t) xdr_int))
@@ -186,6 +197,9 @@ xdr_a2_matrix_mul (XDR *xdrs, a2_matrix_mul *objp)
 			 if (!xdr_int (xdrs, &objp->row_second))
 				 return FALSE;
 			 if (!xdr_int (xdrs, &objp->col_second))
+				 return FALSE;
+			 if (!xdr_vector (xdrs, (char *)objp->multiplied, 100,
+				sizeof (int), (xdrproc_t) xdr_int))
 				 return FALSE;
 		} else {
 			{
@@ -208,6 +222,14 @@ xdr_a2_matrix_mul (XDR *xdrs, a2_matrix_mul *objp)
 			objp->col_first = IXDR_GET_LONG(buf);
 			objp->row_second = IXDR_GET_LONG(buf);
 			objp->col_second = IXDR_GET_LONG(buf);
+			{
+				register int *genp;
+
+				for (i = 0, genp = objp->multiplied;
+					i < 100; ++i) {
+					*genp++ = IXDR_GET_LONG(buf);
+				}
+			}
 		}
 	 return TRUE;
 	}
@@ -225,6 +247,9 @@ xdr_a2_matrix_mul (XDR *xdrs, a2_matrix_mul *objp)
 	 if (!xdr_int (xdrs, &objp->row_second))
 		 return FALSE;
 	 if (!xdr_int (xdrs, &objp->col_second))
+		 return FALSE;
+	 if (!xdr_vector (xdrs, (char *)objp->multiplied, 100,
+		sizeof (int), (xdrproc_t) xdr_int))
 		 return FALSE;
 	return TRUE;
 }

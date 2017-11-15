@@ -32,6 +32,7 @@ struct a2_matrix_mul{
 	int col_first;
 	int row_second;
 	int col_second;
+	int multiplied[100];
 
 };
 
