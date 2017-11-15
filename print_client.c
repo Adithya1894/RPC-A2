@@ -119,7 +119,7 @@ morampudi_a2_1(char *host)
 	}
 #endif	/* DEBUG */
 
-do
+while(i!=6)
 {	
 	printf("\n");
 	printf("Please choose an option: \n");
@@ -238,7 +238,9 @@ do
 		printf("\n");
 	}
 	
-	
+	default:
+	printf("\nPlease enter a valid option!\n");
+	break;	
 	
 	
 	
@@ -248,7 +250,7 @@ do
 	/*closing brace for switch case, this comment is for Developers readability*/
 	}
 }  
-while(i!=6);
+
 	
 
 
