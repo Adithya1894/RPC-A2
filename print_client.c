@@ -226,13 +226,13 @@ do
 		z++;
 		}
 	}
-	
+	printf("Result Matrix is: \n");
 	for(i = 0; i < row; i++ )
 	{
 		for(j = 0; j < row; j++)
 		{
 		
-		printf("\n Result Matrix is: \n");
+		
 		printf("%d\t", result_matrix[i][j]);
 		}
 		printf("\n");
