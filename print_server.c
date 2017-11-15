@@ -183,7 +183,8 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 				l++;
 			}
 		}
-		result->row_first = row1;		
+		result->row_first = row1;
+		result->col_second = col2;		
 	retval =1;
 	return retval;
 }
