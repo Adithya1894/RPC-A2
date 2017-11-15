@@ -8,7 +8,7 @@ if it is not installed, you can do so using the command "sudo apt -get install r
 go to the directory where the client and server files are located(In this case it is the root folder)  
 
 ./print_server - to start the server    
-./print_client server_host - to start the client    
+./print_client server_host - to start the client  (server_host is the address of the server where you are running the server if it is your local machine then keep it as localhost)  
 
 Now you can use the application.  
 
