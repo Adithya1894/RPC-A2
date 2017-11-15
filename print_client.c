@@ -36,7 +36,8 @@ input_array_values(a2_matrix_mul *formal_array)
 	int formal_first[100];
 	int formal_second[100];
 	int i,j;
-	int z ,k = 0;
+	int z = 0;
+	int k = 0;
 	printf("\n Enter the number of rows of first array: \n");
 	scanf("%d", &row1);
 	formal_array->row_first = row1;
@@ -53,6 +54,7 @@ input_array_values(a2_matrix_mul *formal_array)
 			z++;
 		}
 	}
+	z = 0;
 	
 	printf("\n Enter the number of rows of second array: \n");
 	scanf("%d", &row2);
@@ -70,6 +72,7 @@ input_array_values(a2_matrix_mul *formal_array)
 			k++;
 		}
 	}
+	k = 0;
 	
 	for(i = 0; i < row1*col1; i++)
 	{
@@ -208,26 +211,26 @@ do
 	break;
 	
 	case 5:
-	printf("Matrix Multiplication\n");
 	input_array_values(&matrix_mul_1_arg);
 	retval_5 = matrix_mul_1(&matrix_mul_1_arg, &result_5, clnt);
 	if (retval_5 != RPC_SUCCESS) {
 		clnt_perror (clnt, "call failed");
 	}
 	else{
-	printf("Multiplied Result: \n");
+	
 	formal_result = &result_5;
 	row = formal_result->row_first;
 	col = formal_result->col_second;
 	for(i = 0; i < row; i++)
 	{
-		for(j = 0; j < col; j++)
+		for(j = 0; j < row; j++)
 		{
 
 		result_matrix[i][j] = formal_result->multiplied[z];
 		z++;
 		}
 	}
+	z=0;
 	printf("Result Matrix is: \n");
 	for(i = 0; i < row; i++ )
 	{
