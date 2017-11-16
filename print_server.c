@@ -8,6 +8,7 @@
 #include "unistd.h"
 #include "errno.h"
 #include "stdio.h"
+/*Echo function*/
 bool_t
 echo_1_svc(a2_echo *argp, a2_echo *result, struct svc_req *rqstp)
 {
@@ -16,27 +17,28 @@ echo_1_svc(a2_echo *argp, a2_echo *result, struct svc_req *rqstp)
 	printf("Echo function called \n");
 	printf("This is the input from the user: %s",argp->input);
 	printf("\n");
+	/*simply copying the result back into the result structure and passing it to client*/
 	strcpy(result->input, argp->input);
+	
 	retval =1;
 	return retval;
-	/*
-	 * insert server code here
-	 */
+	
 
 }
-
+/*Sorting the list elements*/
 bool_t
 sort_1_svc(a2_sort *argp, a2_sort *result, struct svc_req *rqstp)
 {
 	printf("Sort function is called\n");
 	bool_t retval;
+	/*getting the count of elements and storing it in count*/
 	int count = argp->count; 
 	int list_items;
 	int items[100];
 	int i;
 	int j;
 	int value; 
-	/*I am using insertion sort to sort the values of the list */
+	/*using insertion sort to sort the values of the list */
 	for(i =0; i < count; i++)
 	{
 		list_items = argp->list[i];
@@ -62,15 +64,14 @@ sort_1_svc(a2_sort *argp, a2_sort *result, struct svc_req *rqstp)
 	/*passing the sorted output to the client*/
 	for(i = 0; i < count; i++)
 	{
+	/*storing  the sorted output back into the result structure*/
 	result->sorted_list[i] =items[i];
 	}
-	/*
-	 * insert server code here
-	 */
+	
 	retval = 1;
 	return retval;
 }
-
+/*this function is for printing the path of the working directory*/
 bool_t
 path_1_svc(void *argp, a2_path *result, struct svc_req *rqstp)
 {	
@@ -80,24 +81,24 @@ path_1_svc(void *argp, a2_path *result, struct svc_req *rqstp)
 	/*getcwd is used here to get the current working directory, inbuilt function in c*/
 	getcwd(cwd,sizeof(cwd));
        	strcpy(result->pwd, cwd);
-	/*
-	 * insert server code here
-	 */
+
 	retval = 1;
 	return retval;
 }
-
+/*This function is for checking whether the required file is present at the server*/
 bool_t
 file_check_1_svc(a2_file_check *argp, a2_file_check *result, struct svc_req *rqstp)
-{
+{ 	
+	printf("File check Function is called\n");
 	bool_t retval;
 	char empty[10] = "Not Found";
 	int arr[10][10]; 
-	/*using the inbuilt access function present in c I am checking if a file is available*/
+	/*using the inbuilt access function present in c, I am checking if a file is available*/
     if( access( argp->files, F_OK ) != -1 ) {
     	strcpy(result->files, argp->files);
     	
 	} else {
+		/*If the file is not present, I am assigning the value not found to files member in the result structure*/
     		strcpy(result->files, empty);
 	}
 	
@@ -105,9 +106,6 @@ file_check_1_svc(a2_file_check *argp, a2_file_check *result, struct svc_req *rqs
 	
 	
 	
-	/*
-	 * insert server code here
-	 */
 	retval = 1;
 	return retval;
 }
@@ -116,6 +114,7 @@ file_check_1_svc(a2_file_check *argp, a2_file_check *result, struct svc_req *rqs
 bool_t
 matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqstp)
 {
+	printf("\nMatrix Multiplication is called\n");
 	bool_t retval;
 	
 	int row1,i,j;
@@ -144,7 +143,7 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 		{	
 			first_value = argp->first[k];
 			first_server[i][j] = first_value;
-			printf("%d\t", argp->first[k]);
+		
 			
 			second_value = argp->second[k];
 			second_server[i][j] = second_value;
@@ -179,7 +178,7 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 			{
 				
 				serialized_result = result_matrix[i][j];
-				printf("%d\t", result_matrix[i][j]);
+			
 				result->multiplied[l] = serialized_result;
 				l++;
 			}
@@ -190,7 +189,7 @@ matrix_mul_1_svc(a2_matrix_mul *argp, a2_matrix_mul *result, struct svc_req *rqs
 	retval = 1;
 	return retval;
 }
-
+/*This is created by rpcgen when I used the -M flag*/
 int
 morampudi_a2_1_freeresult (SVCXPRT *transp, xdrproc_t xdr_result, caddr_t result)
 {
