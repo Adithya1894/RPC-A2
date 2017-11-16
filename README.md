@@ -17,7 +17,9 @@ Now you can use the application.
 
 if Interface file(print.x) is Changed use:  
 
-rpcgen -a -M print.x - this will generate the server stubs, client stubs, server, client files and Makefile 
+rpcgen -a -M print.x - this will generate the server stubs, client stubs, server, client files and Makefile  
+
+The -M option is to generate a Template where your server acts as a Multithreaded server
  
  
 once the above files are generated use the command:  
